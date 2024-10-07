@@ -1,4 +1,4 @@
-def solve(price: float) -> list[int]:
+def solve(price: float) -> list[str]:
     cents = int(price * 100)
     coins = [100, 50, 20, 10, 5, 2, 1]
     result = []
