@@ -6,7 +6,7 @@ def solve(price: float) -> list[int]:
     for coin in coins:
         count = cents // coin
         if count > 0:
-            if coin == 100:
+            if coin % 100 == 0:
                 result.append(f'{count} x {int(coin/100)} euro')
             else:
                 result.append(f'{count} x {coin} cents')
