@@ -1,15 +1,32 @@
-def solve(price: float) -> list[str]:
-    cents = int(price * 100)
-    coins = [100, 50, 20, 10, 5, 2, 1]
-    result = []
+class ex4:
+    def __init__(self, word, subword):
+        if not isinstance(word, str):
+            raise TypeError('String must be a string')
+        if not isinstance(subword, str):
+            raise TypeError('Subword must be a string')
+        self.string = word
+        self.substring = subword
 
-    for coin in coins:
-        count = cents // coin
-        if count > 0:
-            if coin % 100 == 0:
-                result.append(f'{count} x {int(coin/100)} euro')
-            else:
-                result.append(f'{count} x {coin} cents')
-        cents -= count * coin
+    def solve_iteration(self):
+        result = -1
+        for i in range(len(self.string) - len(self.substring) + 1):
+            if self.string[i:i + len(self.substring)] == self.substring:
+                result = i
+                break
+        return result
 
-    return result
+    def solve_method(self):
+        return self.string.find(self.substring)
+
+    def compare(self):
+        return self.solve_iteration() == self.solve_method()
+
+    def run(self):
+        print("Exercise 4, Method 1: Iteration", end=' ')
+        print(self.solve_iteration())
+        print("Exercise 4, Method 2: String method", end=' ')
+        print(self.solve_method())
+        if self.compare():
+            print('Both methods are equal')
+        else:
+            print('Methods are not equal')

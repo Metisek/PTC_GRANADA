@@ -1,20 +1,32 @@
-from datetime import timedelta
+class ex3:
+    def __init__(self, word):
+        if not isinstance(word, str):
+            raise TypeError('String must be a string')
+        self.string = word
 
-def solve(time1: str, time2: str) -> str:
-    try:
-        if len(time1.split(':')) == 2:
-            time1 += ':00'
-        if len(time2.split(':')) == 2:
-            time2 += ':00'
-    except Exception as e:
-        return f"Error: {e}"
+    def solve_iteration(self):
+        result = ''
+        for char in self.string:
+            chat_idx = ord(char)
+            if 65 <= chat_idx <= 90:
+                chat_idx += 32
+            elif 97 <= chat_idx <= 122:
+                chat_idx -= 32
+            result += chr(chat_idx)
+        return result
 
-    h1, m1, s1 = map(int, time1.split(':'))
-    h2, m2, s2 = map(int, time2.split(':'))
+    def solve_method(self):
+        return self.string.swapcase()
 
-    t1 = timedelta(hours=h1, minutes=m1, seconds=s1)
-    t2 = timedelta(hours=h2, minutes=m2, seconds=s2)
+    def compare(self):
+        return self.solve_iteration() == self.solve_method()
 
-    diff = abs(t2 - t1)
-
-    return str(diff)
+    def run(self):
+        print("Exercise 3, Method 1: Iteration", end=' ')
+        print(self.solve_iteration())
+        print("Exercise 3, Method 2: String method", end=' ')
+        print(self.solve_method())
+        if self.compare():
+            print('Both methods are equal')
+        else:
+            print('Methods are not equal')

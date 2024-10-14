@@ -1,4 +1,4 @@
-class ex5:
+class ex9:
     def __init__(self, word):
         if not isinstance(word, str):
             raise TypeError('String must be a string')
@@ -6,24 +6,22 @@ class ex5:
         self.vovels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
 
     def solve_iteration(self):
-        result = 0
+        result = ''
         for char in self.string:
-            for vovel in self.vovels:
-                if char == vovel:
-                    result += 1
-                    break
+            if char not in self.vovels:
+                result += char
         return result
 
     def solve_method(self):
-        return sum(1 for char in self.string if char in self.vovels)
+        return ''.join(filter(lambda char: char.lower() not in self.vovels, self.string))
 
     def compare(self):
         return self.solve_iteration() == self.solve_method()
 
     def run(self):
-        print("Exercise 5, Method 1: Iteration", end=' ')
+        print("Exercise 9, Method 1: Iteration", end=' ')
         print(self.solve_iteration())
-        print("Exercise 5, Method 2: String method", end=' ')
+        print("Exercise 9, Method 2: String method", end=' ')
         print(self.solve_method())
         if self.compare():
             print('Both methods are equal')

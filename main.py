@@ -1,46 +1,53 @@
-import os
-import glob
-import importlib.util
-import sys
-import ex1, ex2, ex3, ex4, ex5, ex6, ex7, ex8
+import ex1, ex2, ex3, ex4, ex6, ex5, ex7, ex8, ex9, ex10
 
 
 # Exercise 1
-ex1solve = ex1.solve(2, 3)
-max_val, min_val = ex1solve[0], ex1solve[1]
-print('MAX: {}, MIN: {}'.format(max_val, min_val))
+program1 = ex1.ex1('Hello World')
+program1.run()
 
 # Exercise 2
-h1, m1, s1 = 12, 30, 15
-h2, m2, s2 = 14, 45, 30
-print('Time difference in seconds: {}'.format(ex2.solve(h1, m1, s1, h2, m2, s2)))
+program2_1 = ex2.ex2('Hello World', 'o')
+program2_2 = ex2.ex2('Test test test', 'ts')
+program2_1.run()
+program2_2.run()
 
-# Exercise 3
-time1 = "12:30:15"
-time2 = "14:45:30"
-print('Time difference in time format: {}'.format(ex3.solve(time1, time2)))
+# Exercise 3 (I'm going to assume that all letters are
+# from the English alphabet)
 
-# Exercise 4
-price = 3.75
-print('Minimum amount of refunded coins in price {}: {}'.format(price, ex4.solve(price)))
+program3 = ex3.ex3('Kocham Informatyke')
+program3.run()
+
+# Exercise 4 (assuming that case sensitivity is important)
+
+program4_1 = ex4.ex4('Test String 123', 'S')
+program4_2 = ex4.ex4('Test String 123', 'ing')
+program4_1.run()
+program4_2.run()
 
 # Exercise 5
-range1 = 2
-range2 = 4.2
-print('Sum of numbers in closed range between {} and {}: {}'.format(range1, range2, ex5.solve(range1, range2)))
+program5 = ex5.ex5('Hello World')
+program5.run()
 
-# Exercise 6
-n = 5
-k = 2
-print('Combinatorio form n = {} and k = {}: {}'.format(n, k, ex6.solve(n, k)))
+# Exercise 6 (Assuming that repeating all case vovels is not mandtory)
+program6 = ex6.ex6('Hello World')
+program6.run()
 
-# Exercise 7
-num = 1234
-print('First value smaller than given number: {} that is diviseable by 9: {}'.format(num, ex7.solve(num)))
+# Exercise 7 (Assuming that all letters are from the English alphabet)
+program7 = ex7.ex7('Hello World')
+program7.run()
 
 # Exercise 8
-year1 = 2021
-year2 = 2000
+program8_1 = ex8.ex8('Hello World')
+program8_2 = ex8.ex8('abcde')
+program8_1.run()
+program8_2.run()
 
-print('Nearest leap year to {} is: {}'.format(year1, ex8.solve(year1)))
-print('Nearest leap year to {} is: {}'.format(year2, ex8.solve(year2)))
+# Exercise 9
+program9 = ex9.ex9('Hello World')
+program9.run()
+
+# Exercise 10
+program10_1 = ex10.ex10('Hello World', 'dlroW olleH')
+program10_2 = ex10.ex10('Test',  'tesT')
+program10_1.run()
+program10_2.run()
