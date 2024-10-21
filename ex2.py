@@ -1,35 +1,29 @@
-class ex2:
-    def __init__(self, word, letter):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string')
-        if not isinstance(letter, str):
-            raise TypeError('Letter must be a string')
-        self.string = word
-        self.letter = set(letter.lower())
+from exercise_class_init import Exercise
 
-    def solve_iteration(self):
-        result = ''
-        for char in self.string:
-            temp_char = char
-            if ord(temp_char) >= 65 and ord(temp_char) <= 90:
-                temp_char = chr(ord(char) + 32)
-            if temp_char not in self.letter:
-                result += char
+class ex2(Exercise):
+    def __init__(self, list_vals, number):
+        if not isinstance(list_vals, list) and not isinstance(list_vals, tuple):
+            raise TypeError('List argument must be a valid list or tuple')
+        for i in list_vals:
+            if not isinstance(i, int):
+                raise TypeError('List must contain only integers')
+        if not isinstance(number, int):
+            raise TypeError('Number must be an integer')
+        self.list_vals = list_vals
+        self.number = number
+        super().__init__()
+
+    def solve(self):
+        result = []
+        for start in range(len(self.list_vals)):
+            current_sum = 0
+            sublist = []
+            for end in range(start, len(self.list_vals)):
+                current_sum += self.list_vals[end]
+                sublist.append(self.list_vals[end])
+                if current_sum == self.number:
+                    result.append(sublist[:])
+                    break
+                elif current_sum > self.number:
+                    break
         return result
-
-    def solve_method(self):
-        return ''.join(filter(lambda char: char.lower() not in self.letter, self.string))
-
-
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
-
-    def run(self):
-        print("Exercise 2, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 2, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')

@@ -1,32 +1,23 @@
-class ex3:
-    def __init__(self, word):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string')
-        self.string = word
+from exercise_class_init import Exercise
+import re
 
-    def solve_iteration(self):
-        result = ''
-        for char in self.string:
-            chat_idx = ord(char)
-            if 65 <= chat_idx <= 90:
-                chat_idx += 32
-            elif 97 <= chat_idx <= 122:
-                chat_idx -= 32
-            result += chr(chat_idx)
-        return result
+class ex3(Exercise):
+    def __init__(self, text):
+        if not isinstance(text, str):
+            raise TypeError('Text argument must be a string')
+        self.text = text
+        super().__init__()
 
-    def solve_method(self):
-        return self.string.swapcase()
+    def solve(self):
+        words = re.findall(r'\b\w+\b', self.text.lower())
+        frequency = {}
 
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
+        for word in words:
+            if word in frequency:
+                frequency[word] += 1
+            else:
+                frequency[word] = 1
 
-    def run(self):
-        print("Exercise 3, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 3, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+        most_frequent = sorted(frequency.items(), key=lambda item: item[1], reverse=True)[:3]
+        return [word for word, count in most_frequent]
+

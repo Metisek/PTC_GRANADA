@@ -1,32 +1,16 @@
-class ex4:
-    def __init__(self, word, subword):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string')
-        if not isinstance(subword, str):
-            raise TypeError('Subword must be a string')
-        self.string = word
-        self.substring = subword
+from exercise_class_init import Exercise
 
-    def solve_iteration(self):
-        result = -1
-        for i in range(len(self.string) - len(self.substring) + 1):
-            if self.string[i:i + len(self.substring)] == self.substring:
-                result = i
-                break
-        return result
+class ex4(Exercise):
+    def __init__(self, dictionary):
+        if not isinstance(dictionary, dict):
+            raise TypeError('Argument must be a dictionary')
+        self.dictionary = dictionary
+        super().__init__()
 
-    def solve_method(self):
-        return self.string.find(self.substring)
-
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
-
-    def run(self):
-        print("Exercise 4, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 4, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+    def solve(self):
+        reversed_dict = {}
+        for key, value in self.dictionary.items():
+            if value in reversed_dict:
+                raise ValueError('Duplicate values found in the dictionary')
+            reversed_dict[value] = key
+        return reversed_dict
