@@ -1,0 +1,249 @@
+ABWAruba
+AFGAfganistán
+AGOAngola
+AIAAnguila
+ALAÅland, (las) Islas
+ALBAlbania
+ANDAndorra
+AREEmiratos Árabes Unidos (los)
+ARGArgentina
+ARMArmenia
+ASMSamoa Americana
+ATAAntártida
+ATFTierras Australes Francesas (las)
+ATGAntigua y Barbuda
+AUSAustralia
+AUTAustria
+AZEAzerbaiyán
+BDIBurundi
+BELBélgica
+BENBenín
+BESBonaire, San Eusatquio y Saba
+BFABurkina Faso
+BGDBangladés
+BGRBulgaria
+BHRBaréin
+BHSBahamas (las)
+BIHBosnia y Herzegovina
+BLMSan Barthélemy
+BLRBelarús
+BLZBelice
+BMUBermuda
+BOLBolivia (Estado Plurinacional de)
+BRABrasil
+BRBBarbados
+BRNBrunei Darussalam
+BTNBhután
+BVTBouvet, Isla
+BWABotsuana
+CAFRepública Centroafricana (la)
+CANCanadá
+CCKCocos / Keeling, (las) Islas
+CHESuiza
+CHLChile
+CHNChina
+CIVCôte d'Ivoire
+CMRCamerún
+CODCongo (la República Democrática del)
+COGCongo (el)
+COKCook, (las) Islas
+COLColombia
+COMComoras (las)
+CPVCabo Verde
+CRICosta Rica
+CUBCuba
+CUWCurazao
+CXRChristmas, Isla
+CYMCaimán, (las) Islas
+CYPChipre
+CZEChequia
+DEUAlemania
+DJIYibuti
+DMADominica
+DNKDinamarca
+DOMDominicana, (la) República
+DZAArgelia
+ECUEcuador
+EGYEgipto
+ERIEritrea
+ESHSáhara Occidental
+ESPEspaña
+ESTEstonia
+ETHEtiopía
+FINFinlandia
+FJIFiyi
+FLKMalvinas [Falkland], (las) Islas
+FRAFrancia
+FROFeroe, (las) Islas
+FSMMicronesia (Estados Federados de)
+GABGabón
+GBRReino Unido de Gran Bretaña e Irlanda del Norte
+GEOGeorgia
+GGYGuernsey
+GHAGhana
+GIBGibraltar
+GINGuinea
+GLPGuadalupe
+GMBGambia (la)
+GNBGuinea-Bissau
+GNQGuinea Ecuatorial
+GRCGrecia
+GRDGranada
+GRLGroenlandia
+GTMGuatemala
+GUFGuayana Francesa
+GUMGuam
+GUYGuyana
+HKGHong Kong
+HMDHeard (Isla) e Islas McDonald
+HNDHonduras
+HRVCroacia
+HTIHaití
+HUNHungría
+IDNIndonesia
+IMNIsla de Man
+INDIndia
+IOTTerritorio Británico del Océano Índico (el)
+IRLIrlanda
+IRNIrán (República Islámica de)
+IRQIrak
+ISLIslandia
+ISRIsrael
+ITAItalia
+JAMJamaica
+JEYJersey
+JORJordania
+JPNJapón
+KAZKazajistán
+KENKenia
+KGZKirguistán
+KHMCamboya
+KIRKiribati
+KNASaint Kitts y Nevis
+KORCorea (la República de)
+KWTKuwait
+LAOLao, (la) República Democrática Popular
+LBNLíbano
+LBRLiberia
+LBYLibia
+LCASanta Lucía
+LIELiechtenstein
+LKASri Lanka
+LSOLesoto
+LTULituania
+LUXLuxemburgo
+LVALetonia
+MACMacao
+MAFSan Martín (parte francesa)
+MARMarruecos
+MCOMónaco
+MDAMoldova (la República de)
+MDGMadagascar
+MDVMaldivas
+MEXMéxico
+MHLMarshall, (las) Islas
+MKDMacedonia del Norte
+MLIMalí
+MLTMalta
+MMRMyanmar
+MNEMontenegro
+MNGMongolia
+MNPMarianas Septentrionales, (las) Islas
+MOZMozambique
+MRTMauritania
+MSRMontserrat
+MTQMartinica
+MUSMauricio
+MWIMalaui
+MYSMalasia
+MYTMayotte
+NAMNamibia
+NCLNueva Caledonia
+NERNíger (el)
+NFKNorfolk, Isla
+NGANigeria
+NICNicaragua
+NIUNiue
+NLDPaíses Bajos (los)
+NORNoruega
+NPLNepal
+NRUNauru
+NZLNueva Zelandia
+OMNOmán
+PAKPakistán
+PANPanamá
+PCNPitcairn, (las) Islas
+PERPerú
+PHLFilipinas (las)
+PLWPalau
+PNGPapúa Nueva Guinea
+POLPolonia
+PRIPuerto Rico
+PRKCorea (la República Popular Democrática de)
+PRTPortugal
+PRYParaguay
+PSEPalestina, Estado de
+PYFPolinesia Francesa
+QATCatar
+REUReunión
+ROURumania
+RUSRusia, (la) Federación de
+RWARuanda
+SAUArabia Saudita
+SDNSudán
+SENSenegal
+SGPSingapur
+SGSGeorgia del Sur (la) y las Islas Sandwich del Sur
+SHNSanta Elena, Ascensión y Tristán de Acuña
+SJMSvalbard y Jan Mayen
+SLBSalomón, (las) Islas
+SLESierra Leona
+SLVEl Salvador
+SMRSan Marino
+SOMSomalia
+SPMSan Pedro y Miquelón
+SRBSerbia
+SSDSudán del Sur
+STPSanto Tomé y Príncipe
+SURSuriname
+SVKEslovaquia
+SVNEslovenia
+SWESuecia
+SWZEswatini
+SXMSan Martín (parte neerlandesa)
+SYCSeychelles
+SYRRepública Árabe Siria
+TCATurcas y Caicos, (las) Islas
+TCDChad
+TGOTogo
+THATailandia
+TJKTayikistán
+TKLTokelau
+TKMTurkmenistán
+TLSTimor-Leste
+TONTonga
+TTOTrinidad y Tabago
+TUNTúnez
+TURTurquía
+TUVTuvalu
+TWNTaiwán (ProvincIa de China)
+TZATanzania, República Unida de
+UGAUganda
+UKRUcrania
+UMIIslas menores alejadas de Estados Unidos (las)
+URYUruguay
+USAEstados Unidos de América (los)
+UZBUzbekistán
+VATSanta Sede (la)
+VCTSan Vincente y las Granadinas
+VENVenezuela (República Bolivariana de)
+VGBVírgenes Británicas, (las) Islas
+VIRVírgenes de los Estados Unidos, (las) Islas
+VNMViet Nam
+VUTVanuatu
+WLFWallis y Futuna
+WSMSamoa
+YEMYemen
+ZAFSudáfrica
+ZMBZambia
+ZWEZimbabue
