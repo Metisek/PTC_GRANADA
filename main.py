@@ -5,8 +5,8 @@ from scripts.constants import countries, gdp, population
 def main():
     ex1.exec(gdp, population, countries)
     ex2.exec(population, countries)
-    # ex3.exec()
-    # ex4.exec()
+    ex3.exec(gdp, population, countries)
+    ex4.exec(gdp)
     # ex5.exec()
     # ex6.exec()
 

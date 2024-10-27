@@ -1,9 +1,7 @@
 import csv
 
-# Load data from files
 gdp_data = {}
 population_data = {}
-
 out_file_path = 'csv_out/gdp_per_capita.csv'
 
 

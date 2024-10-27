@@ -1,10 +1,8 @@
 import csv
 import re
 
-# Load data from files
 population_area_data = {}
 out_file_path = 'csv_out/density_population_europe.csv'
-
 
 def exec(population, countries):
     with open(population, 'r', encoding='utf-8') as pop_file:
