@@ -7,8 +7,8 @@ def main():
     ex2.exec(population, countries)
     ex3.exec(gdp, population, countries)
     ex4.exec(gdp)
-    # ex5.exec()
-    # ex6.exec()
+    ex5.exec(population)
+    ex6.exec(population)
 
 
 if __name__ == '__main__':
