@@ -1,28 +1,19 @@
-class ex8:
-    def __init__(self, word):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string') # I just realised it's nonsense, but it's staing because it's funny
-        # THE FLOOR IS MADE OUT OF FLOOR
-        self.string = word
-        self.vovels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+import numpy as np
+from exercise_class_init import Exercise
 
-    def solve_iteration(self):
-        return self.string[0] in self.vovels and self.string[-1] in self.vovels
+class ex8(Exercise):
+    def __init__(self, vector):
+        if not isinstance(vector, (np.ndarray, list)):
+            raise TypeError("Vector must be a list or numpy array.")
+        self.vector = np.array(vector)
+        super().__init__()
 
-    def solve_method(self):
-        # Well, it's gonna be identical to the iteration method
-        # I don't think there is a method for that exercise
-        return self.string[0] in self.vovels and self.string[-1] in self.vovels
+    def solve(self):
+        window_3 = np.lib.stride_tricks.sliding_window_view(self.vector, window_shape=3).mean(axis=-1)
+        window_5 = np.lib.stride_tricks.sliding_window_view(self.vector, window_shape=5).mean(axis=-1)
 
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
+        last_10_window_3 = window_3[-10:]
+        last_10_window_5 = window_5[-10:]
 
-    def run(self):
-        print("Exercise 8, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 8, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+        result = np.column_stack((last_10_window_3, last_10_window_5))
+        return result

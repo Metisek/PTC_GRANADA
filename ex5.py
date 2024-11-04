@@ -1,31 +1,30 @@
-class ex5:
-    def __init__(self, word):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string')
-        self.string = word
-        self.vovels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+import numpy as np
+from exercise_class_init import Exercise
 
-    def solve_iteration(self):
-        result = 0
-        for char in self.string:
-            for vovel in self.vovels:
-                if char == vovel:
-                    result += 1
-                    break
-        return result
+class ex5(Exercise):
+    def __init__(self, vector):
+        if not isinstance(vector, (np.ndarray, list)):
+            raise TypeError("Vector must be a list or numpy array.")
+        self.vector = np.array(vector)
+        super().__init__()
 
-    def solve_method(self):
-        return sum(1 for char in self.string if char in self.vovels)
+    def solve(self):
 
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
+        for i in range(len(self.vector)):
+            if self.vector[i] % 0.5 == 0:
+                self.vector[i] += 1
 
-    def run(self):
-        print("Exercise 5, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 5, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+            elif abs(self.vector[i]) > 4.7:
+                self.vector[i] = round(self.vector[i])
+
+        # Extract the first 20 values as a row vector
+        row_vector = self.vector[:20].reshape(1, -1)
+
+        # Extract the last 20 values as a column vector
+        column_vector = self.vector[-20:].reshape(-1, 1)
+
+        # Perform matrix multiplication
+        result = np.dot(row_vector, column_vector)
+
+        # Return the result
+        return result[0][0]

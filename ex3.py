@@ -1,32 +1,38 @@
-class ex3:
-    def __init__(self, word):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string')
-        self.string = word
+import numpy as np
+from exercise_class_init import Exercise
 
-    def solve_iteration(self):
-        result = ''
-        for char in self.string:
-            chat_idx = ord(char)
-            if 65 <= chat_idx <= 90:
-                chat_idx += 32
-            elif 97 <= chat_idx <= 122:
-                chat_idx -= 32
-            result += chr(chat_idx)
-        return result
+class ex3(Exercise):
+    def __init__(self, matrix):
+        if not isinstance(matrix, np.ndarray):
+            raise ValueError("Input must be a numpy array")
+        if matrix.shape[0] != matrix.shape[1]:
+            raise ValueError("Matrix must be square")
+        self.matrix = matrix
+        super().__init__()
 
-    def solve_method(self):
-        return self.string.swapcase()
+    def solve(self):
+        local_minima = []
+        rows, cols = self.matrix.shape
 
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
+        for i in range(rows):
+            for j in range(cols):
+                current = self.matrix[i, j]
+                is_minimum = True
 
-    def run(self):
-        print("Exercise 3, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 3, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+                # Check top
+                if i > 0 and self.matrix[i - 1, j] <= current:
+                    is_minimum = False
+                # Check bottom
+                if i < rows - 1 and self.matrix[i + 1, j] <= current:
+                    is_minimum = False
+                # Check left
+                if j > 0 and self.matrix[i, j - 1] <= current:
+                    is_minimum = False
+                # Check right
+                if j < cols - 1 and self.matrix[i, j + 1] <= current:
+                    is_minimum = False
+
+                if is_minimum:
+                    local_minima.append((i, j))
+
+        return local_minima

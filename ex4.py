@@ -1,32 +1,18 @@
-class ex4:
-    def __init__(self, word, subword):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string')
-        if not isinstance(subword, str):
-            raise TypeError('Subword must be a string')
-        self.string = word
-        self.substring = subword
+import numpy as np
+from exercise_class_init import Exercise
 
-    def solve_iteration(self):
-        result = -1
-        for i in range(len(self.string) - len(self.substring) + 1):
-            if self.string[i:i + len(self.substring)] == self.substring:
-                result = i
-                break
-        return result
+class ex4(Exercise):
+    def __init__(self, triangular_matrix):
+        if not isinstance(triangular_matrix, (np.ndarray, list)):
+            raise TypeError("triangular_matrix must be a list or numpy array.")
+        if not np.allclose(triangular_matrix, np.triu(triangular_matrix)):
+            raise ValueError("Input must be an upper triangular matrix.")
+        self.triangular_matrix = np.array(triangular_matrix)
+        super().__init__()
 
-    def solve_method(self):
-        return self.string.find(self.substring)
 
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
-
-    def run(self):
-        print("Exercise 4, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 4, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+    def solve(self):
+        unique, counts = np.unique(self.triangular_matrix, return_counts=True)
+        mode_value = unique[np.argmax(counts)]
+        positions = np.argwhere(self.triangular_matrix < mode_value)
+        return positions

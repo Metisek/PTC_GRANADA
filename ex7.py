@@ -1,27 +1,35 @@
-class ex7:
-    def __init__(self, word):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string')
-        self.string = word
+import numpy as np
+from exercise_class_init import Exercise
 
-    def solve_iteration(self):
-        for i in range(0, len(self.string)):
-            if ord(self.string[i]) >= ord('a') and ord(self.string[i]) <= ord('z'):
-                self.string = self.string[:i] + chr(ord(self.string[i]) - 32) + self.string[i + 1:]
-        return self.string
+class ex7(Exercise):
+    def __init__(self, vec1, vec2, vec3):
+        if not isinstance(vec1, (np.ndarray, list)) or not isinstance(vec2, (np.ndarray, list)) or not isinstance(vec3, (np.ndarray, list)):
+            raise TypeError("All vectors must be numpy arrays or lists.")
 
-    def solve_method(self):
-        return self.string.upper()
+        if isinstance(vec1, list):
+            vec1 = np.array(vec1)
+        if isinstance(vec2, list):
+            vec2 = np.array(vec2)
+        if isinstance(vec3, list):
+            vec3 = np.array(vec3)
+        if vec1.shape != vec2.shape or vec1.shape != vec3.shape:
+            raise ValueError("All vectors must have the same shape.")
+        self.vec1 = vec1
+        self.vec2 = vec2
+        self.vec3 = vec3
+        super().__init__()
 
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
+    def solve(self):
+        col_vec = self.vec3.reshape(-1, 1)
 
-    def run(self):
-        print("Exercise 7, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 7, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+        # Using np.multiply and np.matmul
+        O = np.outer(self.vec1, self.vec2)
+        result_np = np.matmul(O, O.T)
+        final_result_np = np.multiply(result_np, col_vec)
+
+        # Using operators * and @
+        O_op = np.outer(self.vec1, self.vec2)
+        result_op = O_op @ O_op.T
+        final_result_op = result_op * col_vec
+
+        return f"final_result_np: {final_result_np},\nfinal_result_op: {final_result_op}"
