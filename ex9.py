@@ -1,29 +1,34 @@
-class ex9:
-    def __init__(self, word):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string')
-        self.string = word
-        self.vovels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+from exercise_class_init import Exercise
+import csv
 
-    def solve_iteration(self):
-        result = ''
-        for char in self.string:
-            if char not in self.vovels:
-                result += char
-        return result
+class ex9(Exercise):
+    def __init__(self, filename):
+        self.filename = filename
+        super().__init__()
 
-    def solve_method(self):
-        return ''.join(filter(lambda char: char.lower() not in self.vovels, self.string))
+    def read_csv(self):
+        with open(self.filename, 'r', encoding='utf-8') as file:
+            reader = csv.reader(file, delimiter=';')
+            try:
+                next(reader)  # Skip header
+            except StopIteration:
+                return {} # Empty file
+            dictionary1 = {rows[0]: rows[1] for rows in reader}
+        return dictionary1
 
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
+    def read_csv_dict(self):
+        with open(self.filename, 'r', encoding='utf-8') as file:
+            reader = csv.DictReader(file, delimiter=';')
+            dictionary2 = {row['Country']: row['Capital'] for row in reader}
+        return dictionary2
 
-    def run(self):
-        print("Exercise 9, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 9, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+    def solve(self):
+        result_1 = self.read_csv()
+        result_2 = self.read_csv_dict()
+        return result_1, result_2
+
+    def print_result(self, result):
+        print("First dictionary from csv:")
+        print(result[0])
+        print("Second dictionary using DictReader:")
+        print(result[1])

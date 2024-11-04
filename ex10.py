@@ -1,27 +1,28 @@
-class ex10:
-    def __init__(self, word1, word2):
-        if not isinstance(word1, str):
-            raise TypeError('Word1 must be a string')
-        if not isinstance(word2, str):
-            raise TypeError('Word2 must be a string')
-        self.string1 = word1
-        self.string2 = word2
+from exercise_class_init import Exercise
 
-    def solve_iteration(self):
-        return self.string1 == self.string2[::-1]
+class ex10(Exercise):
+    def __init__(self, N):
+        if not isinstance(N, int):
+            raise ValueError("N must be an integer")
+        self.N = N
+        super().__init__()
 
-    def solve_method(self):
-        return self.string1 == ''.join(reversed(self.string2))
+    def solve(self):
 
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
+        prime_factors = self.prime_factor_decomposition(self.N)
+        print(f"Prime factor decomposition of {self.N}:", end=" ")
+        return prime_factors
 
-    def run(self):
-        print("Exercise 10, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 10, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+    def prime_factor_decomposition(self, n):
+        if n < 2:
+            return []
+        factors = []
+        i = 2
+        while i * i <= n:
+            while n % i == 0:
+                factors.append(i)
+                n //= i
+            i += 1
+        if n > 1:  # If n is still greater than 1, it is prime
+            factors.append(n)
+        return factors

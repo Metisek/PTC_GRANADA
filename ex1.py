@@ -1,27 +1,16 @@
-class ex1:
-    def __init__(self, string):
-        if not isinstance(string, str):
-            raise TypeError('String must be a string')
-        self.string = string
+from exercise_class_init import Exercise
 
-    def solve_iteration(self):
-        count = 0
-        for _ in self.string:
-            count += 1
-        return count
+class ex1(Exercise):
+    def __init__(self, list_vals, diviser):
+        if not isinstance(list_vals, list) and not isinstance(list, tuple):
+            raise TypeError('List argument must be a valid list or tuple')
+        if not isinstance(diviser, int):
+            raise TypeError('Diviser argument must be an integer')
+        self.list_vals = list_vals
+        self.diviser = diviser
+        super().__init__()
 
-    def solve_method(self):
-        return len(self.string)
+    def solve(self):
+        sublists = [self.list_vals[i:i + self.diviser] for i in range(0, len(self.list_vals), self.diviser)]
+        return sublists
 
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
-
-    def run(self):
-        print("Exercise 1, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 1, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')

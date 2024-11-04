@@ -1,28 +1,21 @@
-class ex8:
-    def __init__(self, word):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string') # I just realised it's nonsense, but it's staing because it's funny
-        # THE FLOOR IS MADE OUT OF FLOOR
-        self.string = word
-        self.vovels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+from exercise_class_init import Exercise
 
-    def solve_iteration(self):
-        return self.string[0] in self.vovels and self.string[-1] in self.vovels
+class ex8(Exercise):
+    def __init__(self, temperature_dict):
+        if not isinstance(temperature_dict, dict):
+            raise TypeError('Temperature argument must be a dictionary')
+        for key, value in temperature_dict.items():
+            if not isinstance(key, str) or not isinstance(value, int):
+                raise TypeError('Dictionary keys must be strings and values must be integers')
+        self.temperature_dict = temperature_dict
+        super().__init__()
 
-    def solve_method(self):
-        # Well, it's gonna be identical to the iteration method
-        # I don't think there is a method for that exercise
-        return self.string[0] in self.vovels and self.string[-1] in self.vovels
-
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
-
-    def run(self):
-        print("Exercise 8, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 8, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+    def solve(self):
+        result = {}
+        for city, temp in self.temperature_dict.items():
+            if temp not in result:
+                result[temp] = []
+            result[temp].append(city)
+        result = {temperature : sorted(cities) for temperature, cities in result.items()}
+        result = dict(sorted(result.items()))
+        return result

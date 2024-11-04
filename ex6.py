@@ -1,32 +1,14 @@
-class ex6:
-    def __init__(self, word):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string')
-        self.string = word
-        self.vovels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+from exercise_class_init import Exercise
 
-    def solve_iteration(self):
-        result = []
-        for char in self.string:
-            for vovel in self.vovels:
-                if char == vovel:
-                    if ord(char) >= 65 and ord(char) <= 90:
-                        char = chr(ord(char) + 32)
-                    result.append(char)
-        return set(result)
+class ex6(Exercise):
+    def __init__(self, M, N):
+        if not isinstance(N, int) and not isinstance(M, int):
+            raise TypeError('Arguments must be integers')
+        self.N = N
+        self.M = M
+        super().__init__()
 
-    def solve_method(self):
-        return set(filter(lambda char: char.lower() in self.vovels, self.string))
-
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
-
-    def run(self):
-        print("Exercise 6, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 6, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+    def solve(self):
+        matrix = [[i + j * (self.N + 1) + 1 for j in range(self.N)] for i in range(self.M)]
+        transpose_matrix = [[matrix[j][i] for j in range(self.M)] for i in range(self.N)]
+        return transpose_matrix

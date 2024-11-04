@@ -1,31 +1,19 @@
-class ex5:
-    def __init__(self, word):
-        if not isinstance(word, str):
-            raise TypeError('String must be a string')
-        self.string = word
-        self.vovels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+from exercise_class_init import Exercise
+from collections import defaultdict
 
-    def solve_iteration(self):
-        result = 0
-        for char in self.string:
-            for vovel in self.vovels:
-                if char == vovel:
-                    result += 1
-                    break
-        return result
+class ex5(Exercise):
+    def __init__(self, log):
+        if not isinstance(log, str):
+            raise TypeError('Text argument must be a string')
+        self.text = log
+        super().__init__()
 
-    def solve_method(self):
-        return sum(1 for char in self.string if char in self.vovels)
+    def solve(self):
+        summary = defaultdict(lambda: defaultdict(int))
+        logs = self.text.split('\n')
 
-    def compare(self):
-        return self.solve_iteration() == self.solve_method()
+        for log in logs:
+            user, action = log.split(':')
+            summary[user][action] += 1
 
-    def run(self):
-        print("Exercise 5, Method 1: Iteration", end=' ')
-        print(self.solve_iteration())
-        print("Exercise 5, Method 2: String method", end=' ')
-        print(self.solve_method())
-        if self.compare():
-            print('Both methods are equal')
-        else:
-            print('Methods are not equal')
+        return {user: dict(actions) for user, actions in summary.items()}
