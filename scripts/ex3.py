@@ -57,3 +57,4 @@ def exec(gdp, population, countries):
     plt.subplots_adjust(left=0.09, right=0.75)
     plt.grid(True)
     plt.savefig(out_file_path)
+    plt.close()
