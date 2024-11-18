@@ -1,38 +1,37 @@
 import numpy as np
 from exercise_class_init import Exercise
+import matplotlib.pyplot as plt
+import os
+from matplotlib.animation import FuncAnimation
 
 class ex3(Exercise):
-    def __init__(self, matrix):
-        if not isinstance(matrix, np.ndarray):
-            raise ValueError("Input must be a numpy array")
-        if matrix.shape[0] != matrix.shape[1]:
-            raise ValueError("Matrix must be square")
-        self.matrix = matrix
+    def __init__(self, file_out_path: str):
+        if not isinstance(file_out_path, str):
+            raise TypeError("File out path must be a string.")
+        abs_folder_path = os.path.dirname(os.path.abspath(file_out_path))
+        if not os.path.exists(abs_folder_path):
+            raise FileNotFoundError(f"The folder {abs_folder_path} does not exist.")
+        self.file_out_path = file_out_path
         super().__init__()
 
     def solve(self):
-        local_minima = []
-        rows, cols = self.matrix.shape
 
-        for i in range(rows):
-            for j in range(cols):
-                current = self.matrix[i, j]
-                is_minimum = True
+        # Define the function to animate
+        def animate(i):
+            x = np.linspace(0, 2 * np.pi, 1000)
+            y = np.sin(x + i / 10.0)
+            line.set_data(x, y)
+            return line,
 
-                # Check top
-                if i > 0 and self.matrix[i - 1, j] <= current:
-                    is_minimum = False
-                # Check bottom
-                if i < rows - 1 and self.matrix[i + 1, j] <= current:
-                    is_minimum = False
-                # Check left
-                if j > 0 and self.matrix[i, j - 1] <= current:
-                    is_minimum = False
-                # Check right
-                if j < cols - 1 and self.matrix[i, j + 1] <= current:
-                    is_minimum = False
+        # Create a figure and axis
+        fig, ax = plt.subplots()
+        ax.set_xlim(0, 2 * np.pi)
+        ax.set_ylim(-1, 1)
+        line, = ax.plot([], [], lw=2)
 
-                if is_minimum:
-                    local_minima.append((i, j))
+        # Create the animation
+        ani = FuncAnimation(fig, animate, frames=200, interval=20, blit=True)
+        ani.save(self.file_out_path, writer='imagemagick')
 
-        return local_minima
+        # Display the animation
+        plt.show()

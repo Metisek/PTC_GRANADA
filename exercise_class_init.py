@@ -6,10 +6,10 @@ class Exercise:
     def solve(self):
         pass
 
-    def print_result(self, result):
-        print(result)
+    def print_result(self):
+        print("Window renderend properly (function completed with exit code 0)")
 
     def run(self):
         print("Exercise {} result:".format(self.exercise_name))
-        result = self.solve()
-        self.print_result(result)
+        self.solve()
+        self.print_result()

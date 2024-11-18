@@ -5,56 +5,40 @@ import ex4
 import ex5
 import ex6
 import ex7
-import ex8
 import numpy as np
+import tkinter as tk
 
-np.random.seed(42) # For reproducibility
+# Seed as a input argument
+seed = 42
 
-# Exercise 1
-program1 = ex1.ex1()
-program1.run()
+# Output file names
+ex_3_output_path = "out/ex3_output.gif"
 
-# Exercise 2
-ex2_points_a = np.random.rand(5, 2)
-ex2_points_b = np.random.rand(6, 2)
-program2 = ex2.ex2(ex2_points_a, ex2_points_b)
-program2.run()
+# Function for hanfling turning on exercises
+def main():
+    root = tk.Tk()
+    root.title("Exercise Launcher")
 
-# Exercise 3
-matrix_size = 10
-ex3_matrix = np.random.rand(matrix_size, matrix_size)
-np.fill_diagonal(ex3_matrix, 1)
-program3 = ex3.ex3(ex3_matrix)
-program3.run()
+    def run_exercise(exercise):
+        exercise.run()
 
-# Exercise 4
-ex4_upper_triangular_matrix = np.triu(np.random.randint(-5, 16, (5, 5)))
-program4 = ex4.ex4(ex4_upper_triangular_matrix)
-program4.run()
+    exercises = [
+        ("Exercise 1", ex1.ex1(seed)),
+        ("Exercise 2", ex2.ex2()),
+        ("Exercise 3", ex3.ex3(ex_3_output_path)),
+        ("Exercise 4", ex4.ex4()),
+        ("Exercise 5", ex5.ex5()),
+        ("Exercise 6", ex6.ex6()),
+        ("Exercise 7", ex7.ex7()),
+    ]
 
-# Exercise 5
-# I don't know why the result is equal to -142.2222..., not -128.3333...
-# Do you have any guess?
-ex5_vector = np.linspace(-7.5, 5.5, 40)
-program5 = ex5.ex5(ex5_vector)
-program5.run()
+    for (text, exercise) in exercises:
+        button = tk.Button(root, text=text, command=lambda ex=exercise: run_exercise(ex),
+                           font=("Helvetica", 14), bg="lightblue", fg="black", padx=20, pady=10)
+        button.pack(pady=10)
 
-# Exercise 6
-# Incommpatible system of equations
-program6_incompatible = ex6.ex6([[1, 2, 3], [4, 5, 6], [7, 8, 9]], [1, 2, 3])
-program6_incompatible.exercise_name = "ex 6 - Incompatible system of equations"
-program6_incompatible.run()
-# Compatible system of equations
-program6 = ex6.ex6([[3, -1, 1], [1, 2, -10], [3, -1.5, 2]], [2, 1, 3])
-program6.exercise_name = "ex 6 - Compatible system of equations"
-program6.run()
+    root.mainloop()
 
-# Exercise 7
-ex7_vec1, ex7_vec2, ex7_vec3 = [-1, 0, 1], [1, 2, 1], [3, 4, 5]
-program7 = ex7.ex7(ex7_vec1, ex7_vec2, ex7_vec3)
-program7.run()
+if __name__ == "__main__":
+    main()
 
-# Exercise 8
-ex8_vector = np.random.rand(50)
-program8 = ex8.ex8(ex8_vector)
-program8.run()
