@@ -70,7 +70,6 @@ class SymbolicCalculatorFrame(ctk.CTkFrame):
         result_display.pack(pady=5)
 
     def create_buttons(self, frame):
-        """Tworzenie przycisków numerycznych i operatorów."""
         buttons = [
             ("1",), ("2",), ("3",), ("+",), ("-"),
             ("4",), ("5",), ("6",), ("*",), ("/",),
@@ -84,7 +83,6 @@ class SymbolicCalculatorFrame(ctk.CTkFrame):
             btn.grid(row=i // 5, column=i % 5, padx=5, pady=5)
 
     def append_to_input(self, value):
-        """Dodanie wartości do pola Entry."""
         current_text = self.input_field.get()
         if value == "√":
             value = "^(1/2)"
@@ -96,7 +94,6 @@ class SymbolicCalculatorFrame(ctk.CTkFrame):
         self.input_field.delete(0, ctk.END)
 
     def insert_multiplication_operators(self, expression):
-        """Wstawianie brakujących operatorów mnożenia."""
         expression = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', expression)
         expression = re.sub(r'([a-zA-Z])(\d)', r'\1*\2', expression)
         expression = re.sub(r'([a-zA-Z])([a-zA-Z])', r'\1*\2', expression)
@@ -106,7 +103,6 @@ class SymbolicCalculatorFrame(ctk.CTkFrame):
         return expression
 
     def validate_input(self, new_value):
-        """Walidacja wejściowego tekstu."""
         valid_chars = "0123456789+-*/().^xyz√"
         for char in new_value:
             if char not in valid_chars:
@@ -114,7 +110,6 @@ class SymbolicCalculatorFrame(ctk.CTkFrame):
         return True
 
     def simplify_expression(self):
-        """Uproszczenie wyrażenia."""
         try:
             expression = self.insert_multiplication_operators(self.input_field.get())
             expression = sympify(expression)
@@ -124,7 +119,6 @@ class SymbolicCalculatorFrame(ctk.CTkFrame):
             self.result_var.set(f"Error: {e}")
 
     def derive_expression(self):
-        """Różniczkowanie wyrażenia."""
         try:
             expression = self.insert_multiplication_operators(self.input_field.get())
             expression = sympify(expression)
@@ -135,7 +129,6 @@ class SymbolicCalculatorFrame(ctk.CTkFrame):
             self.result_var.set(f"Error: {e}")
 
     def integrate_expression(self):
-        """Całkowanie wyrażenia."""
         try:
             expression = self.insert_multiplication_operators(self.input_field.get())
             expression = sympify(expression)
