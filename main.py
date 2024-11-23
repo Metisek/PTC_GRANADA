@@ -5,6 +5,8 @@ from tkinter import Tk
 from sympy import sympify
 from modules.symbolic_calculator import SymbolicCalculatorFrame
 from modules.dynamic_chart import DynamicChartFrame
+from modules.history import HistoryFrame
+from modules.apply_csv import ApplyCSV
 
 last_expression = None
 
@@ -27,7 +29,8 @@ def main():
     # Dodawanie zakładek
     tab_view.add("Symbolic Calculator")
     tab_view.add("Dynamic Chart")
-    tab_view.add("Module 3")
+    tab_view.add("History")
+    tab_view.add("Apply CSV")
 
     # Inicjalizacja zawartości zakładek
     def load_symbolic_calculator_tab():
@@ -35,11 +38,21 @@ def main():
         symbolic_calculator_frame = SymbolicCalculatorFrame(tab_view.tab("Symbolic Calculator"))
         symbolic_calculator_frame.pack(fill="both", expand=True)
         symbolic_calculator_frame.result_var.trace_add("write", update_dynamic_chart)
+        symbolic_calculator_frame.result_var.trace_add("write", update_history)
 
     def load_dynamic_chart_tab():
         global dynamic_chart_frame
         dynamic_chart_frame = DynamicChartFrame(tab_view.tab("Dynamic Chart"), expression=last_expression, is_independent=False)
         dynamic_chart_frame.pack(fill="both", expand=True)
+
+    def load_history_tab():
+        global history_frame
+        history_frame = HistoryFrame(tab_view.tab("History"), symbolic_calculator_frame)
+        history_frame.pack(fill="both", expand=True)
+
+    def load_apply_csv_tab():
+        apply_csv_frame = ApplyCSV(tab_view.tab("Apply CSV"), symbolic_calculator_frame)
+        apply_csv_frame.pack(fill="both", expand=True)
 
     def update_dynamic_chart(*args):
         global last_expression
@@ -47,8 +60,16 @@ def main():
             last_expression = sympify(symbolic_calculator_frame.result_var.get())
             dynamic_chart_frame.update_expression(last_expression)
 
+    def update_history(*args):
+        if symbolic_calculator_frame and history_frame:
+            expression = symbolic_calculator_frame.input_field.get()
+            result = symbolic_calculator_frame.result_var.get()
+            history_frame.add_history(expression, result)
+
     load_symbolic_calculator_tab()
     load_dynamic_chart_tab()
+    load_history_tab()
+    load_apply_csv_tab()
 
     # Główna pętla aplikacji
     root.mainloop()
