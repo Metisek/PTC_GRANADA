@@ -7,6 +7,7 @@ from modules.symbolic_calculator import SymbolicCalculatorFrame
 from modules.dynamic_chart import DynamicChartFrame
 from modules.history import HistoryFrame
 from modules.apply_csv import ApplyCSV
+from modules.matrix_editor import MatrixEditorFrame
 
 last_expression = None
 
@@ -31,6 +32,7 @@ def main():
     tab_view.add("Dynamic Chart")
     tab_view.add("History")
     tab_view.add("Apply CSV")
+    tab_view.add("Matrix Editor")
 
     # Inicjalizacja zawartości zakładek
     def load_symbolic_calculator_tab():
@@ -54,6 +56,10 @@ def main():
         apply_csv_frame = ApplyCSV(tab_view.tab("Apply CSV"), symbolic_calculator_frame)
         apply_csv_frame.pack(fill="both", expand=True)
 
+    def load_matrix_editor_tab():
+        matrix_editor_frame = MatrixEditorFrame(tab_view.tab("Matrix Editor"))
+        matrix_editor_frame.pack(fill="both", expand=True)
+
     def update_dynamic_chart(*args):
         global last_expression
         if symbolic_calculator_frame and dynamic_chart_frame:
@@ -70,10 +76,10 @@ def main():
     load_dynamic_chart_tab()
     load_history_tab()
     load_apply_csv_tab()
+    load_matrix_editor_tab()
 
     # Główna pętla aplikacji
     root.mainloop()
-
 
 if __name__ == "__main__":
     main()
