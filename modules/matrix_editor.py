@@ -25,11 +25,34 @@ class MatrixEditorFrame(ctk.CTkFrame):
         coord_frame.pack(pady=10)
         ctk.CTkLabel(coord_frame, text="Center X:").grid(row=0, column=0)
         self.center_x_var = StringVar(value=str(self.center_x))
-        ctk.CTkEntry(coord_frame, textvariable=self.center_x_var, width=50).grid(row=0, column=1, padx=5)
+        center_x_entry = ctk.CTkEntry(coord_frame, textvariable=self.center_x_var, width=50)
+        center_x_entry.grid(row=0, column=1, padx=5)
         ctk.CTkLabel(coord_frame, text="Center Y:").grid(row=0, column=2)
         self.center_y_var = StringVar(value=str(self.center_y))
-        ctk.CTkEntry(coord_frame, textvariable=self.center_y_var, width=50).grid(row=0, column=3, padx=5)
+        center_y_entry = ctk.CTkEntry(coord_frame, textvariable=self.center_y_var, width=50)
+        center_y_entry.grid(row=0, column=3, padx=5)
         ctk.CTkButton(coord_frame, text="Update Center", command=self.update_center).grid(row=0, column=4, padx=5)
+
+        def validate_center_x(event):
+            try:
+                value = int(self.center_x_var.get())
+                if value < 4:
+                    self.center_x_var.set("4")
+            except ValueError:
+                self.center_x_var.set("4")
+
+        def validate_center_y(event):
+            try:
+                value = int(self.center_y_var.get())
+                if value < 4:
+                    self.center_y_var.set("4")
+            except ValueError:
+                self.center_y_var.set("4")
+
+        # Przypisanie zdarzeń FocusOut do pól wejściowych
+        center_x_entry.bind("<FocusOut>", validate_center_x)
+        center_y_entry.bind("<FocusOut>", validate_center_y)
+
 
         action_frame = ctk.CTkFrame(self)
         action_frame.pack(pady=10)
@@ -104,20 +127,6 @@ class MatrixEditorFrame(ctk.CTkFrame):
             self.matrix_cols = 0
         self.update_info_label()
 
-    def update_size(self):
-        try:
-            rows = int(self.rows_var.get())
-            cols = int(self.cols_var.get())
-            self.matrix_rows = max(1, rows)
-            self.matrix_cols = max(1, cols)
-            if self.matrix is None:
-                self.matrix = np.zeros((self.matrix_rows, self.matrix_cols))
-            else:
-                self.matrix = np.resize(self.matrix, (self.matrix_rows, self.matrix_cols))
-            self.update_display()
-        except ValueError:
-            messagebox.showerror("Error", "Invalid matrix size input.")
-
     def update_center(self):
         try:
             self.center_x = int(self.center_x_var.get())
@@ -137,8 +146,7 @@ class MatrixEditorFrame(ctk.CTkFrame):
                 self.entries[i][j].delete(0, ctk.END)
                 if self.matrix is not None and start_row + i < end_row and start_col + j < end_col:
                     value = self.matrix[start_row + i, start_col + j]
-                    if value != 0:
-                        self.entries[i][j].insert(0, str(value))
+                    self.entries[i][j].insert(0, str(value))
 
         self.update_info_label()
 
@@ -170,10 +178,9 @@ class MatrixEditorFrame(ctk.CTkFrame):
             max_cols = max(self.matrix.shape[1], new_matrix.shape[1])
             resized_matrix = np.zeros((max_rows, max_cols))
             resized_matrix[:self.matrix.shape[0], :self.matrix.shape[1]] = self.matrix
-            for i in range(new_matrix.shape[0]):
-                for j in range(new_matrix.shape[1]):
-                    if start_row + i < max_rows and start_col + j < max_cols:
-                        resized_matrix[start_row + i, start_col + j] = new_matrix[i, j]
+            for i in range(start_row, new_matrix.shape[0]):
+                for j in range(start_col, new_matrix.shape[1]):
+                    resized_matrix[i, j] = new_matrix[i, j]
             # Remove zero rows and columns from bottom and right sides
             non_zero_rows = np.any(resized_matrix != 0, axis=1)
             non_zero_cols = np.any(resized_matrix != 0, axis=0)
@@ -182,30 +189,22 @@ class MatrixEditorFrame(ctk.CTkFrame):
             resized_matrix = resized_matrix[:last_non_zero_row, :last_non_zero_col]
             self.matrix = resized_matrix
 
-        for i in range(7):
-            for j in range(7):
-                value = self.entries[i][j].get()
-                if not value and i + start_row < current_max_row and j + start_col < current_max_col:
-                    self.entries[i][j].insert(0, "0")
-                    new_matrix[start_row + i, start_col + j] = 0
-                elif i + start_row >= current_max_row or j + start_row >= current_max_col:
-                    self.entries[i][j].delete(0, ctk.END)
-
         self.detect_size()
+        self.update_display()
         self.update_info_label()
         self.transpose_button.configure(state="normal")
         self.inverse_button.configure(state="normal")
         self.save_button.configure(state="normal")
 
     def transpose_matrix(self):
-        self.update_matrix_from_input()
+        self.force_focus_and_update()
         transposed = self.matrix[:self.matrix_rows, :self.matrix_cols].T
         self.matrix[:self.matrix_cols, :self.matrix_rows] = transposed
         self.matrix_rows, self.matrix_cols = self.matrix_cols, self.matrix_rows
         self.update_display()
 
     def matrix_inverse(self):
-        self.update_matrix_from_input()
+        self.force_focus_and_update()
         if self.matrix_rows != self.matrix_cols:
             messagebox.showerror("Error", "Matrix inverse is only defined for square matrices.")
             return
@@ -219,8 +218,15 @@ class MatrixEditorFrame(ctk.CTkFrame):
     def update_info_label(self):
         if self.matrix is None:
             self.info_label.configure(text="Matrix currently undefined")
+        elif self.matrix_rows == 0 or self.matrix_cols == 0:
+            self.info_label.configure(text="Matrix has null dimensions")
         else:
             self.info_label.configure(text=f"Matrix size: {self.matrix_rows}x{self.matrix_cols}")
+
+    def force_focus_and_update(self):
+        self.matrix_frame.focus_set()  # Przenosi focus z aktywnego pola wejściowego
+        self.load_matrix_from_input()  # Aktualizuje macierz
+
 
 if __name__ == "__main__":
     ctk.set_appearance_mode("dark")
