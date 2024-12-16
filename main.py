@@ -8,6 +8,8 @@ from modules.dynamic_chart import DynamicChartFrame
 from modules.history import HistoryFrame
 from modules.apply_csv import ApplyCSV
 from modules.matrix_editor import MatrixEditorFrame
+from modules.counter import CounterFrame
+from modules.guess_the_number import GuessNumberFrame
 
 last_expression = None
 
@@ -20,8 +22,8 @@ def main():
     root.geometry("1000x700")
 
     # CustomTkinter style
-    ctk.set_appearance_mode("System")
-    ctk.set_default_color_theme("blue")
+    ctk.set_appearance_mode("dark")
+    ctk.set_default_color_theme("dark-blue")
 
     # Tworzenie TabView do zarządzania zakładkami
     tab_view = ctk.CTkTabview(root)
@@ -33,6 +35,8 @@ def main():
     tab_view.add("History")
     tab_view.add("Apply CSV")
     tab_view.add("Matrix Editor")
+    tab_view.add("Counter")
+    tab_view.add("Guess The Number")
 
     # Inicjalizacja zawartości zakładek
     def load_symbolic_calculator_tab():
@@ -72,11 +76,21 @@ def main():
             result = symbolic_calculator_frame.result_var.get()
             history_frame.add_history(expression, result)
 
+    def load_counter_tab():
+        counter_frame = CounterFrame(tab_view.tab("Counter"))
+        counter_frame.pack(fill="both", expand=True)
+
+    def load_guess_the_number_tab():
+        guess_the_number_frame = GuessNumberFrame(tab_view.tab("Guess The Number"))
+        guess_the_number_frame.pack(fill="both", expand=True)
+
     load_symbolic_calculator_tab()
     load_dynamic_chart_tab()
     load_history_tab()
     load_apply_csv_tab()
     load_matrix_editor_tab()
+    load_counter_tab()
+    load_guess_the_number_tab()
 
     # Główna pętla aplikacji
     root.mainloop()
